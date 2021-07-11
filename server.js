@@ -15,6 +15,14 @@ app.use(express.json());
 app.use(express.static('public'));
 
 app.get('/api/notes', (req, res) => {
+  const notes = db
+  console.log(notes)
+  res.json(notes);
+  //res.sendFile(path.join(__dirname, './Develop/public/notes.html'));
+});
+
+app.post('/api/notes', (req, res) => {
+  console.dir(db)
   res.json(db);
   //res.sendFile(path.join(__dirname, './Develop/public/notes.html'));
 });
@@ -29,6 +37,6 @@ app.get('*', (req, res) => {
 
 
 
-app.listen(3001, () => {
-    console.log(`API server now on port 3001!`);
-  });
+app.listen(PORT, () => {
+  console.log(`API server now on port ${PORT}!`);
+});
