@@ -158,7 +158,7 @@ const renderNoteList = async (notes) => {
     noteListItems.push(createLi('No saved Notes', false));
   }
 
-  jsonNotes.forEach((note) => {
+  jsonNotes.forEach((note) => { //for each doesnt work
     const li = createLi(note.title);
     li.dataset.note = JSON.stringify(note);
 

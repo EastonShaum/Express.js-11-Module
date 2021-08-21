@@ -1,7 +1,9 @@
 const fs = require('fs');
 const path = require('path');
 const express = require('express');
-const db = require('./Develop/db/db.json');
+const db = require('./db/db.json');
+
+const uniqid = require('uniqid')
 
 
 const PORT = process.env.PORT || 3001;
@@ -18,21 +20,32 @@ app.get('/api/notes', (req, res) => {
   const notes = db
   console.log(notes)
   res.json(notes);
-  //res.sendFile(path.join(__dirname, './Develop/public/notes.html'));
 });
 
 app.post('/api/notes', (req, res) => {
-  console.dir(db)
+  req.body.id = uniqid()
+  console.log(req.body)
+  var newNote = req.body
+  console.log('1', newNote)
+  var noteDb = db.notes;
+  noteDb.push(newNote)
+  fs.writeFileSync(
+    path.join(__dirname, './db/db.json'),
+    JSON.stringify({ notes: noteDb}, null, 2)
+  );
   res.json(db);
-  //res.sendFile(path.join(__dirname, './Develop/public/notes.html'));
+});
+
+app.delete('/api/notes:id', (req, res) => {
+  
 });
 
 app.get('/notes', (req, res) => {
-  res.sendFile(path.join(__dirname, './Develop/public/notes.html'));
+  res.sendFile(path.join(__dirname, './public/notes.html'));
 });
 
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, './Develop/public/index.html'));
+  res.sendFile(path.join(__dirname, './public/index.html'));
 });
 
 
