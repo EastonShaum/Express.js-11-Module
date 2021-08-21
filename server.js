@@ -19,7 +19,7 @@ app.use(express.static('public'));
 app.get('/api/notes', (req, res) => {
   const notes = db
   console.log(notes)
-  res.json(notes);
+  res.json(notes.notes);
 });
 
 app.post('/api/notes', (req, res) => {
